@@ -5,14 +5,11 @@
 </head>
 <body>
 <div ng-app="app">
-    <div ng-controller="MyController">
-        <h3>Component Counter</h3>
-        <component-counter count="count"></component-counter>
-    </div>
-    <hr/>
-    <div ng-controller="MyController">
-        <h3>Directive Counter</h3>
-        <directive-counter count="count"></directive-counter>
+    <component-counter id="counter"></component-counter>
+
+    <div ng-controller="InspectController">
+        <button ng-click="inspect()">Inspect</button>
+        <button ng-click="callIncrease()">Call ".increase()"</button>
     </div>
 </div>
 </body>

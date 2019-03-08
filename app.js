@@ -1,52 +1,37 @@
 const app = angular.module('app', [])
-app.controller('MyController', function ($scope) {
-    $scope.count = 5
-})
+
+function getIsolateScope() {
+  const counter = document.getElementById('counter');
+  return angular.element(counter).isolateScope()
+}
+
+app.controller('InspectController', function ($scope) {
+  $scope.inspect = () => {
+    const isolateScope = getIsolateScope();
+    console.log(isolateScope);
+  }
+  $scope.callIncrease = () => {
+    const isolateScope = getIsolateScope();
+    isolateScope.$ctrl.increase();
+  }
+});
 
 app.component('componentCounter', {
-    template: `
+  template: `
     <div>
         <span>Number: {{ $ctrl.count }}</span>
         <button ng-click="$ctrl.increase()">+</button>
         <button ng-click="$ctrl.decrease()">-</button>
     </div>
     `,
-    bindings: {
-        count: '='
-    },
-    controller: function () {
-        this.increase = function () {
-            this.count += 1
-        }
-        this.decrease = function () {
-            this.count -= 1
-        }
+  controller: function () {
+    this.count = 5;
+    this.increase = function () {
+      this.count += 1
     }
-
-})
-
-app.directive('directiveCounter', function () {
-    return {
-        restrict: 'E',
-        template: `
-         <div>
-             <span>Number: {{ $ctrl.count }}</span>
-             <button ng-click="$ctrl.increase()">+</button>
-             <button ng-click="$ctrl.decrease()">-</button>
-         </div>
-         `,
-        scope: {},
-        bindToController: {
-            count: '='
-        },
-        controller: function () {
-            this.increase = function () {
-                this.count += 1
-            }
-            this.decrease = function () {
-                this.count -= 1
-            }
-        },
-        controllerAs: '$ctrl'
+    this.decrease = function () {
+      this.count -= 1
     }
+  }
+
 })
