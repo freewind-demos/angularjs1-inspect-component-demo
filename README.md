@@ -14,5 +14,5 @@ app.config(function ($compileProvider) {
 
 ```
 npm install
-npm run demo
+npm start
 ```
